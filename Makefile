@@ -24,6 +24,9 @@ install:
 	test -d $(VENV_NAME) || python3 -m venv $(VENV_NAME)
 	$(PIP) install -r requierments.txt
 	$(PYTHON) manage.py migrate
+	test -d media || mkdir media
+	test -d static || mkdir static
+	test -d templates || mkdir templates
 
 freeze:
 	$(PIP) freeze > requierments.txt
