@@ -1,4 +1,5 @@
 from pathlib import Path
+import sys
 import environ
 
 # Setup Config 
@@ -7,6 +8,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# Append APP_DIR to Python path
+APPS_DIR = BASE_DIR / 'apps'
+sys.path.insert(0, str(APPS_DIR))
 
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
@@ -31,8 +36,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Media Files
 MEDIA_URL = 'media/'
@@ -56,7 +61,9 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = []
 
 # Local Apps
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'core'
+]
 
 # Application definition
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
