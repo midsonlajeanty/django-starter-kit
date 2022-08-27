@@ -1,4 +1,4 @@
-.PHONY: clean install freeze migrate run
+.PHONY: clean install-db install freeze migrate run
 
 ifeq (create-app,$(firstword $(MAKECMDGOALS)))
   APP_NAME := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
@@ -17,11 +17,12 @@ clean:
 	rm -f db.sqlite3 .env
 	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 
-prepare-env:
-	test -d $(VENV_NAME) || python3 -m venv $(VENV_NAME)
-	test -d .env || cp .env.template .env
+install-db:
+	$(shell sudo chmod +x ./scripts/db.sh)
+	./scripts/db.sh
 
-install: clean prepare-env
+install: clean install-db
+	test -d $(VENV_NAME) || python3 -m venv $(VENV_NAME)
 	$(PIP) install -r requirements.txt
 	$(PYTHON) manage.py migrate
 	test -d media || mkdir media
