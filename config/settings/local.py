@@ -1,7 +1,5 @@
 from .common import *
 
-ALLOWED_HOSTS = []
-
 # Install django-debug-toolbar
 INSTALLED_APPS += ['debug_toolbar']
 
