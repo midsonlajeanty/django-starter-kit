@@ -1,4 +1,4 @@
-.PHONY: clean install-db install freeze migrate run
+.PHONY: clean install-db install freeze migrate test run
 
 ifeq (create-app,$(firstword $(MAKECMDGOALS)))
   APP_NAME := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
@@ -38,6 +38,9 @@ migrate:
 
 create-app:
 	cd apps && ../$(PYTHON) ../manage.py startapp $(APP_NAME) && cd ..
+
+test:
+	$(PYTHON) manage.py test
 
 run:
 	$(PYTHON) manage.py runserver $(HOST):$(PORT)

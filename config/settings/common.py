@@ -65,7 +65,7 @@ THIRD_PARTY_APPS = []
 
 # Local Apps
 LOCAL_APPS = [
-    'core'
+    'core.apps.CoreConfig',
 ]
 
 # Application definition
